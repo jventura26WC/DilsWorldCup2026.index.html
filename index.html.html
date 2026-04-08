@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DILS × World Cup 2026 Predictions</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800&family=Barlow:wght@400;500;600&display=swap');
+
+  :root {
+    --green: #c0392b;
+    --green-light: #e74c3c;
+    --green-dark: #111111;
+    --gold: #e74c3c;
+    --gold-light: #ff6b5b;
+    --red: #e74c3c;
+    --bg: #0a0a0a;
+    --bg2: #111111;
+    --bg3: #181818;
+    --surface: #181818;
+    --surface2: #222222;
+    --border: rgba(255,255,255,0.08);
+    --text: #f5f5f5;
+    --text-muted: #888888;
+    --radius: 10px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Barlow', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  h1, h2, h3, .condensed {
+    font-family: 'Barlow Condensed', sans-serif;
+    letter-spacing: 0.02em;
+  }
+
+  /* ─── HEADER ─── */
+  header {
+    background: var(--green-dark);
+    border-bottom: 2px solid var(--red);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-dils { font-size: 26px; font-weight: 800; letter-spacing: 0.12em; color: #fff; }
+  .logo-sep { color: var(--red); font-size: 18px; }
+
+  .logo-ball {
+    width: 28px;
+    height: 28px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+  }
+
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .user-pill {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-muted);
+    display: none;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .user-pill.active { display: flex; }
+  .user-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green-light); }
+
+  /* ─── NAV TABS ─── */
+  .nav-tabs {
+    display: flex;
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    gap: 4px;
+    overflow-x: auto;
+  }
+
+  .nav-tab {
+    padding: 14px 20px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+    border: none;
+    background: none;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    white-space: nowrap;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .nav-tab:hover { color: var(--text); }
+  .nav-tab.active { color: #ffffff; border-bottom-color: var(--red); }
+  .nav-tab:disabled { opacity: 0.3; cursor: not-allowed; }
+
+  /* ─── MAIN ─── */
+  main { max-width: 900px; margin: 0 auto; padding: 2rem 1.5rem; }
+
+  /* ─── AUTH SCREEN ─── */
+  .auth-container {
+    max-width: 420px;
+    margin: 4rem auto;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2.5rem;
+  }
+
+  .auth-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: #ffffff;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+
+  .auth-subtitle {
+    font-size: 14px;
+    color: var(--text-muted);
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .form-group { margin-bottom: 1.2rem; }
+
+  .form-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    margin-bottom: 6px;
+  }
+
+  .form-input {
+    width: 100%;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 10px 14px;
+    font-size: 15px;
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    transition: border-color 0.2s;
+    outline: none;
+  }
+
+  .form-input:focus { border-color: var(--green-light); }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 11px 22px;
+    border-radius: var(--radius);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    border: none;
+    transition: opacity 0.2s, transform 0.1s;
+  }
+
+  .btn:active { transform: scale(0.98); }
+
+  .btn-primary {
+    background: var(--green-light);
+    color: white;
+    width: 100%;
+  }
+
+  .btn-primary:hover { background: var(--green); }
+
+  .btn-ghost {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    font-size: 14px;
+  }
+
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold-light); }
+
+  .btn-gold {
+    background: var(--red);
+    color: #ffffff;
+  }
+
+  .btn-gold:hover { background: #c0392b; }
+
+  .auth-switch {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .auth-switch a {
+    color: var(--gold-light);
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  .error-msg {
+    background: rgba(192,57,43,0.15);
+    border: 1px solid rgba(192,57,43,0.4);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #e88;
+    margin-bottom: 1rem;
+    display: none;
+  }
+
+  /* ─── SECTION TITLES ─── */
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 1.2rem;
+  }
+
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    color: #ffffff;
+  }
+
+  .section-sub {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  /* ─── GROUP STAGE ─── */
+  .groups-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  .group-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .group-card-header {
+    background: var(--green-dark);
+    padding: 10px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .group-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    color: #ffffff;
+  }
+
+  .group-body { padding: 8px 0; }
+
+  .team-row {
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    gap: 10px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .team-row:last-child { border-bottom: none; }
+  .team-row:hover { background: var(--surface2); }
+
+  .team-flag { font-size: 20px; width: 28px; text-align: center; }
+  .team-name { flex: 1; font-size: 14px; font-weight: 500; }
+
+  .team-rank {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-muted);
+    background: var(--bg2);
+    border-radius: 4px;
+    padding: 2px 8px;
+    min-width: 28px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+  }
+
+  .team-rank.rank-1 { background: var(--gold); color: var(--green-dark); }
+  .team-rank.rank-2 { background: var(--green-light); color: white; }
+  .team-rank.rank-3 { background: #7a5c2e; color: #f5c87a; }
+  .team-rank.rank-4 { background: var(--surface2); color: #888; }
+  .team-rank.rank-x { background: var(--surface2); color: var(--text-muted); }
+
+  /* ─── KNOCKOUT ─── */
+  .knockout-section { margin-bottom: 2rem; }
+
+  .matchup-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 10px;
+  }
+
+  .matchup-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px;
+  }
+
+  .matchup-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: 10px;
+  }
+
+  .matchup-teams {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .matchup-team {
+    flex: 1;
+    text-align: center;
+  }
+
+  .matchup-team-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    margin-top: 4px;
+    color: var(--text-muted);
+  }
+
+  .matchup-flag { font-size: 24px; }
+
+  .vs-badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--text-muted);
+    flex-shrink: 0;
+  }
+
+  .matchup-winner {
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+  }
+
+  .matchup-winner label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .winner-select {
+    width: 100%;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 14px;
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s;
+  }
+
+  .winner-select:focus { border-color: var(--green-light); }
+  .winner-select option { background: #1a2a1e; }
+
+  /* ─── SPECIAL PICKS ─── */
+  .special-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .special-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.2rem;
+  }
+
+  .special-card-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: 0.05em;
+    margin-bottom: 4px;
+    color: var(--red);
+  }
+
+  .special-card-desc {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+  }
+
+  .special-input {
+    width: 100%;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 9px 12px;
+    font-size: 15px;
+    color: var(--text);
+    font-family: 'Barlow', sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+
+  .special-input:focus { border-color: var(--green-light); }
+  .special-input option { background: #1a2a1e; }
+
+  /* ─── SAVE BAR ─── */
+  .save-bar {
+    position: sticky;
+    bottom: 0;
+    background: var(--green-dark);
+    border-top: 2px solid var(--red);
+    padding: 12px 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .save-status {
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .save-status.saved { color: var(--green-light); }
+
+  /* ─── LEADERBOARD ─── */
+  .leaderboard-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .leaderboard-table th {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    padding: 10px 16px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .leaderboard-table td {
+    padding: 14px 16px;
+    font-size: 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .leaderboard-table tr:hover td { background: var(--surface2); }
+
+  .rank-badge {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 800;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .rank-badge.r1 { background: var(--gold); color: var(--green-dark); }
+  .rank-badge.r2 { background: #aaa; color: #111; }
+  .rank-badge.r3 { background: #9e6830; color: #fff; }
+  .rank-badge.rn { background: var(--surface2); color: var(--text-muted); }
+
+  .pts-bar-wrap { display: flex; align-items: center; gap: 10px; min-width: 140px; }
+  .pts-bar { height: 6px; border-radius: 3px; background: var(--green-light); flex-shrink: 0; }
+  .pts-num { font-family: 'Barlow Condensed', sans-serif; font-size: 18px; font-weight: 700; }
+
+  .submitted-badge {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    background: rgba(45,158,95,0.2);
+    color: var(--green-light);
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+
+  .pending-badge {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    background: rgba(201,168,76,0.15);
+    color: var(--gold);
+    padding: 3px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+  }
+
+  /* ─── EMPTY STATE ─── */
+  .empty-state {
+    text-align: center;
+    padding: 3rem 2rem;
+    color: var(--text-muted);
+  }
+
+  .empty-state .icon { font-size: 40px; margin-bottom: 1rem; }
+  .empty-state p { font-size: 15px; line-height: 1.6; }
+
+  /* ─── PROGRESS BAR ─── */
+  .progress-wrap {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1rem 1.2rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .progress-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+
+  .progress-track {
+    flex: 1;
+    min-width: 120px;
+    height: 8px;
+    background: var(--bg2);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--red), #ff6b5b);
+    border-radius: 4px;
+    transition: width 0.4s ease;
+  }
+
+  .progress-pct {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    color: #ffffff;
+    white-space: nowrap;
+  }
+
+  /* ─── TOAST ─── */
+  .toast {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--green-light);
+    color: white;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    padding: 12px 24px;
+    border-radius: 24px;
+    opacity: 0;
+    transition: opacity 0.3s, transform 0.3s;
+    pointer-events: none;
+    z-index: 999;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ─── LOGOUT BTN ─── */
+  .btn-logout {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--text-muted);
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    cursor: pointer;
+    font-family: 'Barlow', sans-serif;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-logout:hover { border-color: var(--red); color: #e88; }
+
+  .hidden { display: none !important; }
+
+  #photoUploadArea:hover { border-color: var(--red); }
+
+  .italy-notice {
+    background: rgba(231,76,60,0.08);
+    border: 1px dashed rgba(231,76,60,0.3);
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  @media (max-width: 600px) {
+    header { padding: 0 1rem; }
+    main { padding: 1rem; }
+    .nav-tabs { padding: 0 1rem; }
+    .auth-container { margin: 2rem auto; padding: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <span class="logo-dils">DILS</span>
+    <span class="logo-sep">×</span>
+    <div class="logo-ball">⚽</div>
+    <span>WORLD CUP 2026 PREDICTIONS</span>
+  </div>
+  <div class="header-right">
+    <div class="user-pill" id="userPill">
+      <div class="user-dot"></div>
+      <span id="userPillName">User</span>
+    </div>
+    <button class="btn-logout hidden" id="logoutBtn" onclick="logout()">Log out</button>
+  </div>
+</header>
+
+<div class="nav-tabs" id="navTabs">
+  <button class="nav-tab active" onclick="switchTab('groups')" id="tab-groups">Group Stage</button>
+  <button class="nav-tab" onclick="switchTab('knockout')" id="tab-knockout">Knockout Rounds</button>
+
+  <button class="nav-tab" onclick="switchTab('special')" id="tab-special">Special Picks</button>
+  <button class="nav-tab" onclick="switchTab('leaderboard')" id="tab-leaderboard">Leaderboard</button>
+  <button class="nav-tab" onclick="switchTab('rules')" id="tab-rules">Scoring Rules</button>
+</div>
+
+<div id="authScreen">
+  <div class="auth-container">
+    <div class="auth-title">DILS × World Cup 2026</div>
+    <div class="auth-subtitle">FIFA World Cup 2026 — make your predictions</div>
+
+    <!-- Login Form -->
+    <div id="loginForm">
+      <div class="error-msg" id="loginError"></div>
+      <div class="form-group">
+        <label class="form-label">Dils Email</label>
+        <input class="form-input" id="loginEmail" type="email" placeholder="name@dils.com" autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <input class="form-input" id="loginPass" type="password" placeholder="••••••••" autocomplete="current-password">
+      </div>
+      <button class="btn btn-primary" onclick="login()">Sign In</button>
+      <div class="auth-switch">New here? <a onclick="showRegister()">Create an account</a></div>
+    </div>
+
+    <!-- Register Form -->
+    <div id="registerForm" style="display:none">
+      <div class="error-msg" id="regError"></div>
+      <div class="form-group">
+        <label class="form-label">First Name <span style="color:var(--red)">*</span></label>
+        <input class="form-input" id="regFirstName" type="text" placeholder="First name">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Last Name <span style="color:var(--red)">*</span></label>
+        <input class="form-input" id="regLastName" type="text" placeholder="Last name">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Dils Entity <span style="color:var(--red)">*</span></label>
+        <select class="form-input" id="regEntity">
+          <option value="">— Select your entity —</option>
+          <option value="Dils Portugal">🇵🇹 Dils Portugal</option>
+          <option value="Dils Spain">🇪🇸 Dils Spain</option>
+          <option value="Dils France">🇫🇷 Dils France</option>
+          <option value="Dils Netherlands">🇳🇱 Dils Netherlands</option>
+          <option value="Dils Italy">🇮🇹 Dils Italy</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Dils Email <span style="color:var(--red)">*</span></label>
+        <input class="form-input" id="regEmail" type="email" placeholder="name@dils.com" autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password <span style="color:var(--red)">*</span></label>
+        <input class="form-input" id="regPass" type="password" placeholder="min. 6 characters">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Job Title <span style="color:var(--red)">*</span></label>
+        <input class="form-input" id="regJobDesc" type="text" placeholder="e.g. Senior Consultant, Head of Research…">
+      </div>
+      <div class="form-group">
+        <label class="form-label">My Football Club <span style="color:var(--red)">*</span></label>
+        <input class="form-input" id="regFootballClub" type="text" placeholder="e.g. Sporting CP, FC Barcelona…">
+      </div>
+      <div class="form-group">
+        <label class="form-label" style="display:flex;align-items:center;gap:6px">
+          Profile Photo
+          <span style="font-size:11px;color:var(--text-muted);font-weight:400;letter-spacing:0">(optional)</span>
+        </label>
+        <div id="photoUploadArea" onclick="document.getElementById('regPhoto').click()" style="border:1.5px dashed var(--border);border-radius:var(--radius);padding:16px;text-align:center;cursor:pointer;transition:border-color 0.2s;background:var(--bg2)">
+          <div id="photoPreview" style="display:none;margin-bottom:8px">
+            <img id="photoPreviewImg" src="" alt="Preview" style="width:64px;height:64px;border-radius:50%;object-fit:cover;border:2px solid var(--red)">
+          </div>
+          <div id="photoPlaceholder" style="color:var(--text-muted);font-size:13px">
+            <div style="font-size:24px;margin-bottom:4px">📷</div>
+            <div>Click to upload photo</div>
+            <div style="font-size:11px;margin-top:2px">JPG, PNG or GIF — max 2MB</div>
+          </div>
+        </div>
+        <input type="file" id="regPhoto" accept="image/*" style="display:none" onchange="handlePhotoUpload(this)">
+      </div>
+      <button class="btn btn-primary" onclick="register()">Create Account</button>
+      <div class="auth-switch">Already have an account? <a onclick="showLogin()">Sign in</a></div>
+    </div>
+  </div>
+</div>
+
+<div id="appScreen" class="hidden">
+  <main>
+    <!-- ── GROUP STAGE ── -->
+    <div id="tab-groups-content">
+      <div class="section-header">
+        <div class="section-title">GROUP STAGE PREDICTIONS</div>
+        <div class="section-sub">Pick 1st to 4th place for each group</div>
+      </div>
+      <div style="background:rgba(231,76,60,0.07);border:1px solid rgba(231,76,60,0.2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-muted);margin-bottom:1rem;line-height:1.6">
+        <strong style="color:#fff">How to play:</strong> For each group, use the dropdowns to select which team finishes 1st, 2nd, 3rd and 4th. <strong style="color:var(--red)">Locked 2h before the first match</strong> (11 Jun 2026, 19:00 UTC). All 48 teams are confirmed.
+      </div>
+      <div class="progress-wrap" id="groupProgress">
+        <div class="progress-label">Groups fully ranked</div>
+        <div class="progress-track"><div class="progress-fill" id="groupProgressFill" style="width:0%"></div></div>
+        <div class="progress-pct" id="groupProgressPct">0 / 12</div>
+      </div>
+      <div class="groups-grid" id="groupsGrid"></div>
+    </div>
+
+    <!-- ── KNOCKOUT ── -->
+    <div id="tab-knockout-content" class="hidden">
+      <div class="section-header">
+        <div class="section-title">KNOCKOUT ROUND PREDICTIONS</div>
+        <div class="section-sub">Pick winners for each stage</div>
+      </div>
+      <div style="background:rgba(231,76,60,0.07);border:1px solid rgba(231,76,60,0.2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-muted);margin-bottom:1.2rem;line-height:1.6">
+        <strong style="color:#fff">📋 Coming soon:</strong> Knockout round matchups will be populated once the group stage concludes. You'll be able to submit your picks for each round, and they'll be <strong style="color:var(--red)">locked 2 hours before the first match of each phase</strong>. Stay tuned!
+      </div>
+      <div id="knockoutContent"></div>
+    </div>
+
+
+
+    <!-- ── SPECIAL PICKS ── -->
+    <div id="tab-special-content" class="hidden">
+      <div class="section-header">
+        <div class="section-title">SPECIAL PICKS</div>
+        <div class="section-sub">Final standings &amp; top scorer</div>
+      </div>
+      <div class="special-grid" id="specialGrid"></div>
+    </div>
+
+    <!-- ── LEADERBOARD ── -->
+    <div id="tab-leaderboard-content" class="hidden">
+      <div class="section-header">
+        <div class="section-title">LEADERBOARD</div>
+        <div class="section-sub">Predictions submitted by your colleagues</div>
+      </div>
+      <div id="leaderboardContent"></div>
+    </div>
+    <!-- ── RULES ── -->
+    <div id="tab-rules-content" class="hidden">
+      <div class="section-header">
+        <div class="section-title">SCORING RULES</div>
+        <div class="section-sub">How points are calculated</div>
+      </div>
+
+      <!-- Deadline banner -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1rem 1.2rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:14px;">
+        <div style="font-size:28px;flex-shrink:0">📅</div>
+        <div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:800;color:#ffffff;margin-bottom:2px">SUBMISSION DEADLINE</div>
+          <div style="font-size:14px;color:var(--text-muted)">All group stage, 1st–4th place and top scorer predictions must be submitted by <strong style="color:var(--red)">11 June 2026, 19:00 UTC</strong> (2 hours before the first match). After that date, these sections are locked. Knockout round picks remain open throughout the tournament.</div>
+        </div>
+      </div>
+
+      <!-- Group Stage scoring -->
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:19px;font-weight:800;color:var(--text-muted);letter-spacing:0.05em;margin-bottom:0.8rem">GROUP STAGE — FULL RANKING (1ST TO 4TH)</div>
+      <div style="font-size:14px;color:var(--text-muted);margin-bottom:1rem">For each of the 12 groups, rank all 4 teams from 1st to 4th place. Each team placed in the exact final position earns points.</div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:2rem">
+        <div style="background:var(--surface);border:1px solid rgba(231,76,60,0.4);border-radius:var(--radius);padding:1.2rem">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:800;color:var(--red)">2</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;color:var(--red);letter-spacing:0.06em;text-transform:uppercase">Points</div>
+          </div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:6px">Exact Position</div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.6">Team finishes in the exact position you ranked them (1st, 2nd, 3rd or 4th). 2 pts per correct position — max 8 pts per group.</div>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:800;color:#555">0</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;color:#555;letter-spacing:0.06em;text-transform:uppercase">Points</div>
+          </div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:6px">Wrong Position</div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.6">Team finishes in a different position than predicted. No partial credit — exact position only.</div>
+        </div>
+      </div>
+
+      <!-- Knockout rounds scoring -->
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:19px;font-weight:800;color:var(--text-muted);letter-spacing:0.05em;margin-bottom:0.8rem;margin-top:2rem">KNOCKOUT ROUNDS</div>
+      <div style="font-size:14px;color:var(--text-muted);margin-bottom:1rem">For each knockout match, pick the team that advances. Picks can be updated at any time during the tournament (not locked).</div>
+
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:2rem">
+        <div style="background:var(--surface);border:1px solid rgba(231,76,60,0.4);border-radius:var(--radius);padding:1.2rem">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:800;color:var(--red)">4</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;color:var(--red);letter-spacing:0.06em;text-transform:uppercase">Points</div>
+          </div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:6px">Correct Winner</div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.6">You picked the team that advances. 3 pts per correct pick, across all knockout rounds.</div>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:1.2rem">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:10px">
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:32px;font-weight:800;color:#555">0</div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;color:#555;letter-spacing:0.06em;text-transform:uppercase">Points</div>
+          </div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:16px;font-weight:700;color:#fff;margin-bottom:6px">Wrong Pick</div>
+          <div style="font-size:13px;color:var(--text-muted);line-height:1.6">The team you picked is eliminated. No points for this match.</div>
+        </div>
+      </div>
+
+      <!-- Special picks scoring -->
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:19px;font-weight:800;color:var(--text-muted);letter-spacing:0.05em;margin-bottom:0.8rem">SPECIAL PICKS</div>
+      <div style="font-size:14px;color:var(--text-muted);margin-bottom:1rem">Pre-tournament bonus predictions. Locked at the same time as the group stage (11 June 2026, 19:00 UTC).</div>
+
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;margin-bottom:2rem">
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;border-bottom:1px solid var(--border)">
+          <div style="font-size:20px;width:32px;text-align:center;flex-shrink:0">🥇</div>
+          <div style="flex:1"><div style="font-weight:500;font-size:14px">Champion (exact)</div><div style="font-size:12px;color:var(--text-muted)">Pick the winner of the World Cup in the right position</div></div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;color:var(--red)">8 pts</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;border-bottom:1px solid var(--border)">
+          <div style="font-size:20px;width:32px;text-align:center;flex-shrink:0">🥈</div>
+          <div style="flex:1"><div style="font-weight:500;font-size:14px">Runner-Up (exact)</div><div style="font-size:12px;color:var(--text-muted)">Pick the finalist who falls short in the right position</div></div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;color:var(--red)">8 pts</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;border-bottom:1px solid var(--border)">
+          <div style="font-size:20px;width:32px;text-align:center;flex-shrink:0">🥉</div>
+          <div style="flex:1"><div style="font-weight:500;font-size:14px">Third Place (exact)</div><div style="font-size:12px;color:var(--text-muted)">Pick the bronze medal winner in the right position</div></div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;color:var(--red)">8 pts</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;border-bottom:1px solid var(--border)">
+          <div style="font-size:20px;width:32px;text-align:center;flex-shrink:0">4️⃣</div>
+          <div style="flex:1"><div style="font-weight:500;font-size:14px">Fourth Place (exact)</div><div style="font-size:12px;color:var(--text-muted)">Pick the 4th place finisher in the right position</div></div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;color:var(--red)">8 pts</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 16px;border-bottom:1px solid var(--border)">
+          <div style="font-size:20px;width:32px;text-align:center;flex-shrink:0">↔️</div>
+          <div style="flex:1"><div style="font-weight:500;font-size:14px">Top 4 — Wrong Position</div><div style="font-size:12px;color:var(--text-muted)">Picked a team that makes the top 4, but in the wrong slot</div></div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;color:var(--red)">3 pts</div>
+        </div>
+        <div style="display:flex;align-items:center;gap:14px;padding:12px 16px">
+          <div style="font-size:20px;width:32px;text-align:center;flex-shrink:0">⚽</div>
+          <div style="flex:1"><div style="font-weight:500;font-size:14px">Top Scorer</div><div style="font-size:12px;color:var(--text-muted)">Pick the Golden Boot winner (exact name match)</div></div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:18px;font-weight:800;color:var(--red)">8 pts</div>
+        </div>
+      </div>
+
+      <!-- Quick tip -->
+      <div style="background:rgba(231,76,60,0.07);border:1px solid rgba(231,76,60,0.2);border-radius:var(--radius);padding:1rem 1.2rem;font-size:13px;color:var(--text-muted);line-height:1.7">
+        <strong style="color:#fff">💡 Max points summary:</strong> Group Stage: up to <strong style="color:var(--red)">96 pts</strong> (12 groups × 4 positions × 2 pts) · Knockout: up to <strong style="color:var(--red)">93 pts</strong> (31 matches × 3 pts) · Special Picks: up to <strong style="color:var(--red)">40 pts</strong> (4×8 + 8 top scorer).
+      </div>
+    </div>
+
+  <div class="save-bar">
+    <div class="save-status" id="saveStatus">Your predictions are saved locally</div>
+    <button class="btn btn-gold" id="submitBtn" onclick="submitPredictions()">Save Predictions ✓</button>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────────
+
+const GROUPS = [
+  { name: 'Group A', teams: [
+    { name: 'Mexico', flag: '🇲🇽' }, { name: 'South Korea', flag: '🇰🇷' },
+    { name: 'South Africa', flag: '🇿🇦' }, { name: 'Czech Republic', flag: '🇨🇿' }
+  ]},
+  { name: 'Group B', teams: [
+    { name: 'Canada', flag: '🇨🇦' }, { name: 'Switzerland', flag: '🇨🇭' },
+    { name: 'Qatar', flag: '🇶🇦' }, { name: 'Bosnia & Herz.', flag: '🇧🇦' }
+  ]},
+  { name: 'Group C', teams: [
+    { name: 'Brazil', flag: '🇧🇷' }, { name: 'Morocco', flag: '🇲🇦' },
+    { name: 'Scotland', flag: '🏴󠁧󠁢󠁳󠁣󠁴󠁿' }, { name: 'Haiti', flag: '🇭🇹' }
+  ]},
+  { name: 'Group D', teams: [
+    { name: 'USA', flag: '🇺🇸' }, { name: 'Paraguay', flag: '🇵🇾' },
+    { name: 'Australia', flag: '🇦🇺' }, { name: 'Türkiye', flag: '🇹🇷' }
+  ]},
+  { name: 'Group E', teams: [
+    { name: 'Germany', flag: '🇩🇪' }, { name: 'Ecuador', flag: '🇪🇨' },
+    { name: 'Ivory Coast', flag: '🇨🇮' }, { name: 'Curaçao', flag: '🇨🇼' }
+  ]},
+  { name: 'Group F', teams: [
+    { name: 'Netherlands', flag: '🇳🇱' }, { name: 'Japan', flag: '🇯🇵' },
+    { name: 'Tunisia', flag: '🇹🇳' }, { name: 'Hungary', flag: '🇭🇺' }
+  ]},
+  { name: 'Group G', teams: [
+    { name: 'Belgium', flag: '🇧🇪' }, { name: 'Iran', flag: '🇮🇷' },
+    { name: 'Egypt', flag: '🇪🇬' }, { name: 'New Zealand', flag: '🇳🇿' }
+  ]},
+  { name: 'Group H', teams: [
+    { name: 'Spain', flag: '🇪🇸' }, { name: 'Uruguay', flag: '🇺🇾' },
+    { name: 'Saudi Arabia', flag: '🇸🇦' }, { name: 'Cape Verde', flag: '🇨🇻' }
+  ]},
+  { name: 'Group I', teams: [
+    { name: 'France', flag: '🇫🇷' }, { name: 'Senegal', flag: '🇸🇳' },
+    { name: 'Norway', flag: '🇳🇴' }, { name: 'Iraq', flag: '🇮🇶' }
+  ]},
+  { name: 'Group J', teams: [
+    { name: 'Argentina', flag: '🇦🇷' }, { name: 'Austria', flag: '🇦🇹' },
+    { name: 'Algeria', flag: '🇩🇿' }, { name: 'Jordan', flag: '🇯🇴' }
+  ]},
+  { name: 'Group K', teams: [
+    { name: 'Portugal', flag: '🇵🇹' }, { name: 'Colombia', flag: '🇨🇴' },
+    { name: 'Uzbekistan', flag: '🇺🇿' }, { name: 'DR Congo', flag: '🇨🇩' }
+  ]},
+  { name: 'Group L', teams: [
+    { name: 'England', flag: '🏴󠁧󠁢󠁥󠁮󠁧󠁿' }, { name: 'Croatia', flag: '🇭🇷' },
+    { name: 'Panama', flag: '🇵🇦' }, { name: 'Ghana', flag: '🇬🇭' }
+  ]},
+];
+
+const ALL_TEAMS = [...new Set(GROUPS.flatMap(g => g.teams.map(t => t.name)))].sort();
+const FLAG_MAP = {};
+GROUPS.forEach(g => g.teams.forEach(t => FLAG_MAP[t.name] = t.flag));
+
+const KNOCKOUT_ROUNDS = [
+  { id: 'r32', label: 'Round of 32', count: 16 },
+  { id: 'r16', label: 'Round of 16', count: 8 },
+  { id: 'qf', label: 'Quarter-Finals', count: 4 },
+  { id: 'sf', label: 'Semi-Finals', count: 2 },
+  { id: 'final', label: 'Final', count: 1 },
+];
+
+// Group stage & special picks locked 2h before first match (11 Jun 2026 21:00 UTC → deadline 19:00 UTC)
+const SUBMISSION_DEADLINE = new Date('2026-06-11T19:00:00Z');
+function isPastDeadline() { return new Date() > SUBMISSION_DEADLINE; }
+function deadlineBanner() {
+  return `<div style="background:rgba(231,76,60,0.12);border:1px solid rgba(231,76,60,0.35);border-radius:8px;padding:10px 16px;font-size:13px;color:#ff9080;margin-bottom:1.2rem;">
+    🔒 The submission deadline (11 June 2026, 19:00 UTC) has passed. Predictions are locked.
+  </div>`;
+}
+
+let currentUser = null;
+let predictions = { groups: {}, knockout: {}, special: {} };
+let users = {}; // { username: { password, name, predictions, submitted } }
+let activeTab = 'groups';
+
+function loadStorage() {
+  try {
+    const u = localStorage.getItem('wc2026_users');
+    if (u) users = JSON.parse(u);
+  } catch(e) {}
+}
+
+function saveStorage() {
+  localStorage.setItem('wc2026_users', JSON.stringify(users));
+}
+
+loadStorage();
+
+// Check if already logged in
+const savedSession = sessionStorage.getItem('wc2026_session');
+if (savedSession && users[savedSession]) {
+  currentUser = savedSession;
+  predictions = JSON.parse(JSON.stringify(users[savedSession].predictions || { groups: {}, knockout: {}, special: {} }));  showApp();
+}
+
+// ─── AUTH ─────────────────────────────────────────────────
+
+function showRegister() {
+  document.getElementById('loginForm').style.display = 'none';
+  document.getElementById('registerForm').style.display = 'block';
+}
+
+function showLogin() {
+  document.getElementById('registerForm').style.display = 'none';
+  document.getElementById('loginForm').style.display = 'block';
+}
+
+function showErr(id, msg) {
+  const el = document.getElementById(id);
+  el.textContent = msg;
+  el.style.display = 'block';
+  setTimeout(() => el.style.display = 'none', 4000);
+}
+
+let pendingPhotoBase64 = null;
+
+function handlePhotoUpload(input) {
+  const file = input.files[0];
+  if (!file) return;
+  if (file.size > 2 * 1024 * 1024) {
+    showErr('regError', 'Photo must be smaller than 2MB.');
+    input.value = '';
+    return;
+  }
+  const reader = new FileReader();
+  reader.onload = e => {
+    pendingPhotoBase64 = e.target.result;
+    document.getElementById('photoPreviewImg').src = pendingPhotoBase64;
+    document.getElementById('photoPreview').style.display = 'block';
+    document.getElementById('photoPlaceholder').style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+function register() {
+  const firstName = document.getElementById('regFirstName').value.trim();
+  const lastName  = document.getElementById('regLastName').value.trim();
+  const name      = firstName + ' ' + lastName;
+  const entity    = document.getElementById('regEntity').value;
+  const email     = document.getElementById('regEmail').value.trim().toLowerCase();
+  const pass      = document.getElementById('regPass').value;
+  const jobDesc   = document.getElementById('regJobDesc').value.trim();
+  const footballClub = document.getElementById('regFootballClub').value.trim();
+
+  if (!firstName)  return showErr('regError', 'Please enter your first name.');
+  if (!lastName)   return showErr('regError', 'Please enter your last name.');
+  if (!entity)     return showErr('regError', 'Please select your Dils entity.');
+  if (!email || !email.includes('@')) return showErr('regError', 'Please enter a valid email address.');
+  if (!email.endsWith('@dils.com') && !email.includes('@dils.')) return showErr('regError', 'Please use your Dils email address.');
+  if (pass.length < 6) return showErr('regError', 'Password must be at least 6 characters.');
+  if (!jobDesc)    return showErr('regError', 'Please enter your job title.');
+  if (!footballClub) return showErr('regError', 'Please enter your football club.');
+  if (users[email]) return showErr('regError', 'An account with this email already exists.');
+
+  users[email] = { password: pass, name, entity, jobDesc, footballClub, photo: pendingPhotoBase64 || null, predictions: { groups:{}, knockout:{}, special:{} }, submitted: false };
+  pendingPhotoBase64 = null;
+  saveStorage();
+  currentUser = email;
+  predictions = { groups:{}, knockout:{}, special:{} };
+  sessionStorage.setItem('wc2026_session', email);
+  showApp();
+}
+
+function login() {
+  const email = document.getElementById('loginEmail').value.trim().toLowerCase();
+  const pass  = document.getElementById('loginPass').value;
+  if (!email) return showErr('loginError', 'Please enter your email address.');
+  if (!users[email]) return showErr('loginError', 'No account found with this email.');
+  if (users[email].password !== pass) return showErr('loginError', 'Incorrect password.');
+  currentUser = email;
+  predictions = JSON.parse(JSON.stringify(users[email].predictions || { groups:{}, knockout:{}, special:{} }));
+  sessionStorage.setItem('wc2026_session', email);
+  showApp();
+}
+
+function logout() {
+  currentUser = null;
+  sessionStorage.removeItem('wc2026_session');
+  document.getElementById('authScreen').classList.remove('hidden');
+  document.getElementById('appScreen').classList.add('hidden');
+  document.getElementById('userPill').classList.remove('active');
+  document.getElementById('logoutBtn').classList.add('hidden');
+}
+
+function showApp() {
+  document.getElementById('authScreen').classList.add('hidden');
+  document.getElementById('appScreen').classList.remove('hidden');
+  const pill = document.getElementById('userPill');
+  pill.classList.add('active');
+  document.getElementById('userPillName').textContent = users[currentUser].name + (users[currentUser].entity ? ' · ' + users[currentUser].entity.replace('Dils ', '') : '');
+  // Show photo in pill if available
+  const photo = users[currentUser].photo;
+  const dot = pill.querySelector('.user-dot');
+  if (photo) {
+    dot.style.cssText = `width:24px;height:24px;border-radius:50%;background:url('${photo}') center/cover;flex-shrink:0;border:1.5px solid var(--red);`;
+  }
+  document.getElementById('logoutBtn').classList.remove('hidden');
+  // Always start on groups tab with a clean render
+  document.querySelectorAll('[id$="-content"]').forEach(c => c.classList.add('hidden'));
+  document.getElementById('tab-groups-content').classList.remove('hidden');
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-groups').classList.add('active');
+  activeTab = 'groups';
+  renderGroups();
+  renderKnockout();
+  renderSpecial();
+  updateSaveBar();
+}
+
+// ─── TABS ─────────────────────────────────────────────────
+
+function switchTab(tab) {
+  activeTab = tab;
+  document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + tab).classList.add('active');
+  document.querySelectorAll('[id$="-content"]').forEach(c => c.classList.add('hidden'));
+  document.getElementById('tab-' + tab + '-content').classList.remove('hidden');
+  if (tab === 'groups')      renderGroups();
+  if (tab === 'special')     renderSpecial();
+  if (tab === 'leaderboard') renderLeaderboard();
+}
+
+// ─── GROUP STAGE ──────────────────────────────────────────
+
+function renderGroups() {
+  const grid = document.getElementById('groupsGrid');
+  const locked = isPastDeadline();
+  let html = '';
+
+  if (locked) {
+    html += `<div style="background:rgba(231,76,60,0.12);border:1px solid rgba(231,76,60,0.35);border-radius:8px;padding:10px 16px;font-size:13px;color:#ff9080;margin-bottom:1.2rem;grid-column:1/-1">
+      🔒 The submission deadline (11 June 2026, 19:00 UTC) has passed. Predictions are locked.
+    </div>`;
+  }
+
+  GROUPS.forEach((group) => {
+    const ranks = predictions.groups[group.name] || {};
+    const completedPositions = [1,2,3,4].filter(r => ranks[r]).length;
+    const isDone = completedPositions === 4;
+    const dis = locked ? 'disabled' : '';
+    const disStyle = locked ? 'opacity:0.6;cursor:not-allowed;' : '';
+
+    const posLabels = ['1ST', '2ND', '3RD', '4TH'];
+
+    const selects = [1,2,3,4].map(pos => {
+      const selected = ranks[pos] || '';
+      const options = group.teams.map(t => {
+        const isSelected = selected === t.name ? 'selected' : '';
+        return `<option value="${t.name}" ${isSelected}>${t.flag} ${t.name}</option>`;
+      }).join('');
+      return `<div style="margin-bottom:8px">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:${pos===1?'var(--red)':pos===2?'var(--green-light)':pos===3?'#f5c87a':'var(--text-muted)'};margin-bottom:4px">${posLabels[pos-1]} Place</div>
+        <select class="winner-select" style="${disStyle}" ${dis} onchange="saveGroupPick('${group.name}', ${pos}, this.value)">
+          <option value="">— Select team —</option>
+          ${options}
+        </select>
+      </div>`;
+    }).join('');
+
+    html += `<div class="group-card">
+      <div class="group-card-header">
+        <div class="group-name">${group.name}</div>
+        <div style="font-size:12px;color:${isDone ? 'var(--red)' : 'var(--text-muted)'};font-weight:600">
+          ${isDone ? '✓ Done' : (locked ? '—' : completedPositions + '/4 placed')}
+        </div>
+      </div>
+      <div style="padding:12px 14px">
+        <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px;line-height:1.5">
+          ${group.teams.map(t => `${t.flag} ${t.name}`).join(' · ')}
+        </div>
+        ${selects}
+      </div>
+    </div>`;
+  });
+
+  grid.innerHTML = html;
+  updateGroupProgress();
+}
+
+function saveGroupPick(groupName, pos, teamName) {
+  if (isPastDeadline()) return;
+  if (!predictions.groups[groupName]) predictions.groups[groupName] = {};
+  const ranks = predictions.groups[groupName];
+
+  // Remove this team from any other position first
+  [1,2,3,4].forEach(r => {
+    if (r !== pos && ranks[r] === teamName) delete ranks[r];
+  });
+
+  if (teamName) {
+    // If another team already sits in this position, clear it
+    ranks[pos] = teamName;
+  } else {
+    delete ranks[pos];
+  }
+
+  predictions.groups[groupName] = ranks;
+  renderGroups();
+  autoSave();
+}
+
+function updateGroupProgress() {
+  let done = 0;
+  GROUPS.forEach(g => {
+    const r = predictions.groups[g.name] || {};
+    if (r[1] && r[2] && r[3] && r[4]) done++;
+  });
+  const pct = Math.round((done / GROUPS.length) * 100);
+  document.getElementById('groupProgressFill').style.width = pct + '%';
+  document.getElementById('groupProgressPct').textContent = done + ' / ' + GROUPS.length;
+}
+
+// ─── KNOCKOUT ─────────────────────────────────────────────
+
+function renderKnockout() {
+  const cont = document.getElementById('knockoutContent');
+  cont.innerHTML = '';
+  KNOCKOUT_ROUNDS.forEach(round => {
+    const sect = document.createElement('div');
+    sect.className = 'knockout-section';
+    const matches = [];
+    for (let i = 0; i < round.count; i++) matches.push(i);
+    sect.innerHTML = `
+      <div class="section-header" style="margin-top:1.5rem">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:19px;font-weight:800;color:var(--text-muted);letter-spacing:0.05em">${round.label}</div>
+      </div>
+      <div class="matchup-grid">
+        ${matches.map(i => {
+          const key = round.id + '_' + i;
+          const saved = predictions.knockout[key] || '';
+          return `
+          <div class="matchup-card">
+            <div class="matchup-label">Match ${i+1}</div>
+            <div class="matchup-winner">
+              <label>Predicted winner</label>
+              <select class="winner-select" onchange="saveKnockout('${key}', this.value)">
+                <option value="">— Select team —</option>
+                ${ALL_TEAMS.map(t => `<option value="${t}" ${saved===t?'selected':''}>${FLAG_MAP[t]||''} ${t}</option>`).join('')}
+              </select>
+            </div>
+          </div>`;
+        }).join('')}
+      </div>
+    `;
+    cont.appendChild(sect);
+  });
+}
+
+function saveKnockout(key, val) {
+  predictions.knockout[key] = val;
+  autoSave();
+}
+
+// ─── SPECIAL PICKS ────────────────────────────────────────
+
+function renderSpecial() {
+  const grid = document.getElementById('specialGrid');
+  const sp = predictions.special || {};
+  const locked = isPastDeadline();
+  const placePicks = [
+    { key: 'champion', label: '🥇 Champion', desc: 'Who lifts the trophy?' },
+    { key: 'second', label: '🥈 Runner-Up', desc: '2nd place finisher' },
+    { key: 'third', label: '🥉 Third Place', desc: 'Bronze medal winner' },
+    { key: 'fourth', label: '4️⃣ Fourth Place', desc: '4th place finisher' },
+    { key: 'topscorer', label: '⚽ Top Scorer', desc: 'Golden Boot winner — type name', freetext: true },
+  ];
+
+  const banner = locked
+    ? deadlineBanner()
+    : `<div style="background:rgba(231,76,60,0.07);border:1px solid rgba(231,76,60,0.2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-muted);margin-bottom:1.2rem;line-height:1.6"><strong style="color:#fff">Deadline:</strong> Locked 2h before the first match — <strong style="color:var(--red)">11 June 2026, 19:00 UTC</strong>. You can update your picks freely until then.</div>`;
+
+  grid.innerHTML = banner + placePicks.map(p => `
+    <div class="special-card">
+      <div class="special-card-title">${p.label}</div>
+      <div class="special-card-desc">${p.desc}</div>
+      ${p.freetext
+        ? `<input class="special-input" type="text" placeholder="Player name..." value="${sp[p.key]||''}" ${locked ? 'disabled style="opacity:0.6;cursor:not-allowed"' : ''} onchange="saveSpecial('${p.key}', this.value)" oninput="saveSpecial('${p.key}', this.value)">`
+        : `<select class="special-input" ${locked ? 'disabled style="opacity:0.6;cursor:not-allowed"' : ''} onchange="saveSpecial('${p.key}', this.value)">
+            <option value="">— Select team —</option>
+            ${ALL_TEAMS.map(t => `<option value="${t}" ${sp[p.key]===t?'selected':''}>${FLAG_MAP[t]||''} ${t}</option>`).join('')}
+           </select>`
+      }
+    </div>
+  `).join('');
+}
+
+function saveSpecial(key, val) {
+  predictions.special[key] = val;
+  autoSave();
+}
+
+// ─── LEADERBOARD ──────────────────────────────────────────
+
+function renderLeaderboard() {
+  const cont = document.getElementById('leaderboardContent');
+  // Only calculate real points if admin has entered results
+  const anyResults = Object.values(users).some(u =>
+    u.predictions?.actualResults?.hasGroupResults ||
+    u.predictions?.actualResults?.hasKnockoutResults ||
+    u.predictions?.actualResults?.hasSpecialResults
+  );
+
+  const entries = Object.entries(users).map(([uname, data]) => ({
+    uname,
+    name: data.name,
+    entity: data.entity || '—',
+    jobDesc: data.jobDesc || '',
+    footballClub: data.footballClub || '',
+    photo: data.photo || null,
+    submitted: data.submitted,
+    pts: anyResults ? calcPoints(data.predictions || {}) : 0,
+  })).sort((a, b) => b.pts - a.pts || a.name.localeCompare(b.name));
+
+  if (entries.length === 0) {
+    cont.innerHTML = `<div class="empty-state"><div class="icon">🏆</div><p>No predictions yet.<br>Be the first to submit!</p></div>`;
+    return;
+  }
+
+  const maxPts = entries[0]?.pts || 1;
+
+  cont.innerHTML = `
+    ${!anyResults ? `<div style="background:rgba(231,76,60,0.07);border:1px solid rgba(231,76,60,0.2);border-radius:8px;padding:10px 14px;font-size:13px;color:var(--text-muted);margin-bottom:1.2rem;line-height:1.6">
+      <strong style="color:#fff">⏳ Scoring pending:</strong> Points will be calculated once the group stage ends and results are entered by the admin. Rankings below show submission status only.
+    </div>` : ''}
+    <table class="leaderboard-table">
+      <thead>
+        <tr>
+          <th style="width:50px">#</th>
+          <th>Participant</th>
+          <th>Entity</th>
+          <th>Points</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${entries.map((e, i) => {
+          const badgeClass = i===0?'r1':i===1?'r2':i===2?'r3':'rn';
+          const barWidth = anyResults && maxPts > 0 ? Math.round((e.pts / maxPts) * 100) : 0;
+          return `
+          <tr>
+            <td><span class="rank-badge ${badgeClass}">${i+1}</span></td>
+            <td>
+              <div style="display:flex;align-items:center;gap:10px">
+                ${e.photo
+                  ? `<img src="${e.photo}" alt="" style="width:36px;height:36px;border-radius:50%;object-fit:cover;border:1.5px solid var(--red);flex-shrink:0">`
+                  : `<div style="width:36px;height:36px;border-radius:50%;background:var(--surface2);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0">👤</div>`
+                }
+                <div>
+                  <div style="font-weight:500">${e.name}</div>
+                  <div style="font-size:12px;color:var(--text-muted)">${e.jobDesc ? e.jobDesc : e.uname}</div>
+                  ${e.footballClub ? `<div style="font-size:11px;color:var(--red);margin-top:1px">⚽ ${e.footballClub}</div>` : ''}
+                </div>
+              </div>
+            </td>
+            <td style="font-size:13px;color:var(--text-muted)">${e.entity}</td>
+            <td>
+              <div class="pts-bar-wrap">
+                ${anyResults ? `<div class="pts-bar" style="width:${barWidth}px;max-width:80px"></div>` : ''}
+                <div class="pts-num" style="${!anyResults ? 'color:var(--text-muted);font-size:14px' : ''}">${anyResults ? e.pts : '—'}</div>
+              </div>
+            </td>
+            <td>${e.submitted
+              ? '<span class="submitted-badge">Submitted</span>'
+              : '<span class="pending-badge">Pending</span>'
+            }</td>
+          </tr>`;
+        }).join('')}
+      </tbody>
+    </table>
+    <div style="margin-top:1.5rem;padding:1rem 1.2rem;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);font-size:13px;color:var(--text-muted);line-height:1.8">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;color:var(--text);margin-bottom:6px">SCORING SYSTEM</div>
+      <div>🏅 <strong style="color:var(--text)">2 pts</strong> — Group stage: team in exact position (1st–4th)</div>
+      <div style="margin-top:6px">🏆 <strong style="color:var(--text)">3 pts</strong> — Knockout: correct winner per match</div>
+      <div>🎯 <strong style="color:var(--text)">8 pts</strong> — Special picks: top 4 in exact position</div>
+      <div>🎯 <strong style="color:var(--text)">4 pts</strong> — Special picks: top 4 team correct, wrong position</div>
+      <div>⚽ <strong style="color:var(--text)">8 pts</strong> — Special picks: correct top scorer</div>
+    </div>
+  `;
+}
+
+
+// ─── POINTS ───────────────────────────────────────────────
+
+function calcPoints(preds) {
+  let pts = 0;
+  const g = preds.groups || {};
+  const k = preds.knockout || {};
+  const s = preds.special || {};
+  const actual = preds.actualResults || {};
+  const hasActualGroups = actual.hasGroupResults || false;
+  if (hasActualGroups) {
+    GROUPS.forEach(grp => {
+      const pick = g[grp.name] || {};
+      const res  = actual['group_' + grp.name] || {};
+      [1,2,3,4].forEach(pos => {
+        if (pick[pos] && res[pos] && pick[pos] === res[pos]) pts += 2;
+      });
+    });
+  } else {
+    // Engagement: 0.5pt per position filled (cosmetic until results known)
+    Object.values(g).forEach(r => { [1,2,3,4].forEach(p => { if (r[p]) pts += 0.5; }); });
+  }
+
+  // ── KNOCKOUT: 4 pts per correct winner ──
+  const hasKnockoutResults = actual.hasKnockoutResults || false;
+  if (hasKnockoutResults) {
+    Object.entries(k).forEach(([key, pick]) => {
+      const act = actual['ko_' + key];
+      if (pick && act && pick === act) pts += 3;
+    });
+  } else {
+    Object.values(k).forEach(v => { if (v) pts += 0; }); // no engagement pts for knockout
+  }
+
+  // ── SPECIAL PICKS ──
+  const actualSpecial = actual.special || {};
+  const actualTop4 = [actualSpecial.champion, actualSpecial.second, actualSpecial.third, actualSpecial.fourth];
+  const pickTop4 = [s.champion, s.second, s.third, s.fourth];
+  const hasSpecialResults = actual.hasSpecialResults || false;
+
+  if (hasSpecialResults) {
+    pickTop4.forEach((pick, idx) => {
+      if (!pick) return;
+      if (pick === actualTop4[idx]) {
+        pts += 8;
+      } else if (actualTop4.includes(pick)) {
+        pts += 4;
+      }
+    });
+    // Top scorer: 8 pts exact match
+    if (s.topscorer && actualSpecial.topscorer &&
+        s.topscorer.trim().toLowerCase() === actualSpecial.topscorer.trim().toLowerCase()) {
+      pts += 8;
+    }
+  }
+
+  return Math.round(pts);
+}
+
+// ─── SAVE ─────────────────────────────────────────────────
+
+function autoSave() {
+  if (!currentUser) return;
+  users[currentUser].predictions = JSON.parse(JSON.stringify(predictions));
+  saveStorage();
+  const el = document.getElementById('saveStatus');
+  el.textContent = 'Auto-saved ✓';
+  el.className = 'save-status saved';
+  setTimeout(() => {
+    const wasSubmitted = users[currentUser]?.submitted;
+    el.textContent = wasSubmitted ? 'Changes saved — click "Update Predictions" to confirm' : 'Your predictions are saved locally';
+    el.className = 'save-status';
+  }, 2000);
+}
+
+function submitPredictions() {
+  if (!currentUser) return;
+  if (isPastDeadline()) return showToast('Deadline has passed — predictions are locked.');
+  users[currentUser].predictions = JSON.parse(JSON.stringify(predictions));
+  users[currentUser].submitted = true;
+  saveStorage();
+  showToast('Predictions saved! You can keep editing until the deadline. 🏆');
+  document.getElementById('saveStatus').textContent = 'Last saved ✓ — you can still make changes';
+  document.getElementById('saveStatus').className = 'save-status saved';
+  updateSaveBar();
+}
+
+function updateSaveBar() {
+  const btn = document.getElementById('submitBtn');
+  if (!btn) return;
+  if (isPastDeadline()) {
+    btn.disabled = true;
+    btn.textContent = '🔒 Group stage locked';
+    btn.style.opacity = '0.45';
+    btn.style.cursor = 'not-allowed';
+    document.getElementById('saveStatus').textContent = 'Submissions closed — 11 June 2026, 19:00 UTC';
+  } else {
+    btn.disabled = false;
+    btn.textContent = users[currentUser]?.submitted ? 'Update Predictions ✓' : 'Save Predictions ✓';
+    btn.style.opacity = '1';
+    btn.style.cursor = 'pointer';
+  }
+}
+
+// ─── TOAST ────────────────────────────────────────────────
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ─── KEYBOARD ────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && document.getElementById('loginForm').style.display !== 'none' && !currentUser) login();
+  if (e.key === 'Enter' && document.getElementById('registerForm').style.display === 'block' && !currentUser) register();
+});
+</script>
+</body>
+</html>
